@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: eureka-server2
+  security:
+    user:
+      name: yucong
+      password: 123456
+
+server:
+  port: 8763
+
+eureka:
+  instance:
+    hostname: eurekaserver2
+  
+
+  client:
+    service-url:
+      defaultZone: http://yucong:123456@eurekaserver1:8762/eureka/
+
+
+#eureka.server.enableSelfPreservation=false
+#eureka.server.eviction.interval-timer-in-ms=60000

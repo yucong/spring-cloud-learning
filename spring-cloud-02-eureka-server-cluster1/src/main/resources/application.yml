@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: eureka-server1
+  security:
+    user:
+      # 设定安全认证的用户名
+      name: yucong
+      # 设定安全认证的密码
+      password: 123456
+  
+server:
+  port: 8762
+
+eureka:
+  instance:
+    # 定义Eureka Server实例在注册中心中的命名。建议使用配置文件的后缀定义。
+    hostname: eurekaserver1
+    
+    
+  # 配置集群中其他Eureka Server节点的信息。如果需要配置多个节点，使用逗号','分割多个节点信息。
+  # 节点的信息格式为： http://地址:端口/eureka/  。 地址可以使用IP、域名、主机名定义。
+  # 使用HTTP Basic语法，提供安全认证中需要使用的用户名和密码。
+  # 语法是： http://用户名:密码@地址:端口/eureka/
+  client:
+    service-url:
+      defaultZone: http://yucong:123456@eurekaserver2:8763/eureka/
+      # defaultZone: http://eurekaserver2:8763/eureka/
+    
+
+# 关闭自我保护:true为开启自我保护，false为关闭自我保护. 默认开启自我保护模式。
+#eureka.server.enableSelfPreservation=false
+# 清理间隔(单位:毫秒，默认是60*1000)，当服务心跳失效后多久，删除服务。 心跳3次无法接受的时候，开始计时60秒后删除。
+#eureka.server.eviction.interval-timer-in-ms=60000
