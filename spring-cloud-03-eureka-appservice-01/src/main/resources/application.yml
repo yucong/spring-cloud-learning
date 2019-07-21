@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: eureka-application-service
+
+server:
+  port: 8091
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver1:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

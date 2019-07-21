@@ -30,7 +30,7 @@ import org.springframework.web.client.RestTemplate;
  * 
  */
 @RestController
-public class TestApplicationClientController {
+public class TestApplicationClientController1 {
 
 	/**
 	 * ribbon负载均衡器，其中记录了从Eureka Server中获取的所有服务信息。 

@@ -1,0 +1,18 @@
+
+spring:
+  application:
+    name: eureka-application-client
+
+server:
+  port: 8080
+
+# 点对点直连是不发现服务，不是不注册服务。
+# 任何Eureka Client都必须注册。如果没有配置Eureka Server节点列表，则注册失败。Eureka client无法正常启动。
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver1:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
