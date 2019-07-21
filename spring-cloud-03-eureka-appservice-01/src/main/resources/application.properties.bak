@@ -1,0 +1,10 @@
+spring.application.name=eureka-application-service
+server.port=8081
+
+#eureka.client.serviceUrl.defaultZone=http://eurekaserver1:111111@eurekaserver1:8761/eureka/,http://eurekaserver2:222222@eurekaserver2:8761/eureka/
+eureka.client.serviceUrl.defaultZone=http://eurekaserver1:8761/eureka/
+
+# 启用shutdown
+endpoints.shutdown.enabled=true
+# 禁用密码验证
+endpoints.shutdown.sensitive=false
