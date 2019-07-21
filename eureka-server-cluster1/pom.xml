@@ -9,7 +9,7 @@
     </parent>
 	
 	<groupId>com.yucong</groupId>
-	<artifactId>spring-cloud-02-eureka-server-cluster1</artifactId>
+	<artifactId>eureka-server-cluster1</artifactId>
 	<version>1.0</version>
 	
 	<properties>
