@@ -17,7 +17,7 @@ public class EurekaApplicationClientApplication {
 	
 	//加入负载均衡能力
     //同时可根据applicationName 来访问服务
-    //如http://EUREKA-CLIENT/add
+    //如http://EUREKA-CLIENT/test
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {

@@ -1,0 +1,23 @@
+spring.application.name=test-feign-application-client
+server.port=9009
+
+eureka.client.serviceUrl.defaultZone=http://eurekaserver1:111111@eurekaserver1:8761/eureka/,http://eurekaserver2:222222@eurekaserver2:8761/eureka/
+
+# feign gzip
+# 局部配置。只配置feign技术相关的http请求-应答中的gzip压缩。
+# 配置的是application client和application service之间通讯是否使用gzip做数据压缩。
+# 和浏览器到application client之间的通讯无关。
+# 开启feign请求时的压缩， application client -> application service
+# feign.compression.request.enabled=true
+# # 开启feign技术响应是的压缩，  application service -> application client
+# feign.compression.response.enabled=true
+# # 设置可以压缩的请求/响应的类型。
+# feign.compression.request.mime-types=text/xml,application/xml,application/json
+# # 当请求的数据容量达到多少的时候，使用压缩。默认是2048字节。
+# feign.compression.request.min-request-size=512
+
+# spring boot gzip
+# 开启spring boot中的gzip压缩。就是针对和当前应用所有相关的http请求-应答的gzip压缩。
+server.compression.enabled=true
+# 设置可以压缩的请求/应答的类型
+server.compression.mime-types=application/json,application/xml,text/html,text/xml,text/plain
