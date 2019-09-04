@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: test-feign-application-client
+server:
+  port: 9008
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    "FirstClientFeignService#testFeign()":
+      fallback:
+        enabled: true
