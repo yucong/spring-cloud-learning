@@ -25,17 +25,25 @@ public class HystrixController {
 		return this.service.testDowngrade();
 	}
 	
+	/**
+	 * 请求缓存
+	 */
 	@GetMapping("/testCache4Get")
 	public List<Map<String, Object>> testCache4Get(){
 		return this.service.testCache4Get();
 	}
 	
+	/**
+	 * 缓存清除
+	 */
 	@GetMapping("/testCache4Del")
 	public List<Map<String, Object>> testCache4Del(){
 		return this.service.testCache4Del();
 	}
 	
 	/**
+	 * 请求合并
+	 * 
 	 * 在一个控制器方法中多次调用服务逻辑。用来模拟高并发。
 	 */
 	@GetMapping("/testMergeRequest")
@@ -54,16 +62,25 @@ public class HystrixController {
 		System.out.println("r4 : " + r4.get());
 	}
 	
+	/**
+	 * 请求熔断
+	 */
 	@GetMapping("/testBreaker")
 	public List<Map<String, Object>> testBreaker() {
 		return this.service.testBreaker();
 	}
 	
+	/**
+	 * 线程池隔离实现
+	 */
 	@GetMapping("/testThreadQuarantine")
 	public List<Map<String, Object>> testThreadQuarantine() {
 		return this.service.testThreadQuarantine();
 	}
 	
+	/**
+	 * 信号量隔离实现
+	 */
 	@GetMapping("/testSemaphoreQuarantine")
 	public List<Map<String, Object>> testSemaphoreQuarantine() {
 		return this.service.testSemaphoreQuarantine();

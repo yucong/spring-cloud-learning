@@ -137,6 +137,7 @@ public class HystrixService {
 	 * 是application client在一定时间内收集客户端请求，或收集一定量的客户端请求，一次性发给application service。
 	 * application service返回的结果，application client会进行二次处理，封装为future对象并返回
 	 * future对象需要通过get方法获取最终的结果。 get方法是由控制器调用的。所以控制器调用service的过程是一个异步处理的过程。
+	 * 
 	 * 合并请求的方法需要使用@HystrixCollapser注解描述。
 	 * batchMethod - 合并请求后，使用的方法是什么。如果当前方法有参数，合并请求后的方法参数是当前方法参数的集合。
 	 * scope - 合并请求的请求作用域。可选值有global和request。
@@ -172,7 +173,7 @@ public class HystrixService {
 	 * @return
 	 */
 	@HystrixCommand
-	public List<Map<String, Object>> mergeRequest(List<Long> ids){
+	public List<Map<String, Object>> mergeRequest(List<Long> ids) {
 		ServiceInstance si = this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
 		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/testMerge?");

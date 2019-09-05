@@ -1,12 +1,10 @@
 spring:
   application:
     name: hystrix-application-client
-  
-  # redis配置
   redis:
     host: 47.96.21.192 
     database: 0
-    timeout: 0
+    #timeout: 0
     port: 6379
     password: crm2019redis
     jedis:
