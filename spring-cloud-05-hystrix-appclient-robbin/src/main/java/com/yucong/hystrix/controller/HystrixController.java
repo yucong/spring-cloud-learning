@@ -17,6 +17,9 @@ public class HystrixController {
 	@Autowired
 	private HystrixService service;
 
+	/**
+	 * 服务降级
+	 */
 	@GetMapping("/testDowngrade")
 	public List<Map<String, Object>> testDowngrade() {
 		return this.service.testDowngrade();
@@ -34,8 +37,6 @@ public class HystrixController {
 	
 	/**
 	 * 在一个控制器方法中多次调用服务逻辑。用来模拟高并发。
-	 * @throws InterruptedException
-	 * @throws ExecutionException
 	 */
 	@GetMapping("/testMergeRequest")
 	public void testMergeRequest() throws InterruptedException, ExecutionException{
