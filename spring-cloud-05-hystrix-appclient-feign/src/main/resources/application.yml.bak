@@ -1,6 +1,17 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver1:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
 spring:
   application:
     name: test-feign-application-client
+    
+    
 server:
   port: 9008
 

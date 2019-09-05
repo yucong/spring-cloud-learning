@@ -13,8 +13,14 @@ spring:
         min-idle: 50
         max-active: 100
           
-
 server:
   port: 9002
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver1:8761/eureka/
 
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
