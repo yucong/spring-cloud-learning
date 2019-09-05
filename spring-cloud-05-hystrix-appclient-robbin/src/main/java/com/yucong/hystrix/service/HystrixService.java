@@ -41,35 +41,32 @@ public class HystrixService {
 	 * 不会将异常抛到客户端，而是使用本地的一个fallback（错误返回）方法来返回一个托底数据。
 	 * 避免客户端看到错误页面。
 	 * 使用注解来描述当前方法的服务降级逻辑。
+	 * 
 	 * @HystrixCommand - 开启Hystrix命令的注解。代表当前方法如果出现服务调用问题，使用Hystrix逻辑来处理。
-	 *  重要属性 - fallbackMethod
-	 *      错误返回方法名。如果当前方法调用服务，远程服务出现问题的时候，调用本地的哪个方法得到托底数据。
-	 *      Hystrix会调用fallbackMethod指定的方法，获取结果，并返回给客户端。
-	 * @return
+	 * 重要属性 - fallbackMethod 错误返回方法名。
+	 * 如果当前方法调用服务，远程服务出现问题的时候，
+	 * 调用本地的哪个方法得到托底数据。
+	 *  
+	 * Hystrix会调用fallbackMethod指定的方法，获取结果，并返回给客户端。
 	 */
 	@HystrixCommand(fallbackMethod="downgradeFallback")
 	public List<Map<String, Object>> testDowngrade() {
 		System.out.println("testDowngrade method : " + Thread.currentThread().getName());
-		ServiceInstance si = 
-				this.loadBalancerClient.choose("eureka-application-service");
+		ServiceInstance si = this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
-		sb.append("http://").append(si.getHost())
-			.append(":").append(si.getPort()).append("/test");
+		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/test");
 		System.out.println("request application service URL : " + sb.toString());
 		RestTemplate rt = new RestTemplate();
-		ParameterizedTypeReference<List<Map<String, Object>>> type = 
-				new ParameterizedTypeReference<List<Map<String, Object>>>() {
-		};
-		ResponseEntity<List<Map<String, Object>>> response = 
-				rt.exchange(sb.toString(), HttpMethod.GET, null, type);
+		ParameterizedTypeReference<List<Map<String, Object>>> type = new ParameterizedTypeReference<List<Map<String, Object>>>() {};
+		ResponseEntity<List<Map<String, Object>>> response = rt.exchange(sb.toString(), HttpMethod.GET, null, type);
 		List<Map<String, Object>> result = response.getBody();
 		return result;
 	}
 	
 	/**
 	 * fallback方法。本地定义的。用来处理远程服务调用错误时，返回的基础数据。
-	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private List<Map<String, Object>> downgradeFallback(){
 		List<Map<String, Object>> result = new ArrayList<>();
 		
@@ -101,18 +98,13 @@ public class HystrixService {
 	@Cacheable("testCache4Get")
 	public List<Map<String, Object>> testCache4Get() {
 		System.out.println("testCache4Get method thread name : " + Thread.currentThread().getName());
-		ServiceInstance si = 
-				this.loadBalancerClient.choose("eureka-application-service");
+		ServiceInstance si =  this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
-		sb.append("http://").append(si.getHost())
-			.append(":").append(si.getPort()).append("/test");
+		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/test");
 		System.out.println("request application service URL : " + sb.toString());
 		RestTemplate rt = new RestTemplate();
-		ParameterizedTypeReference<List<Map<String, Object>>> type = 
-				new ParameterizedTypeReference<List<Map<String, Object>>>() {
-		};
-		ResponseEntity<List<Map<String, Object>>> response = 
-				rt.exchange(sb.toString(), HttpMethod.GET, null, type);
+		ParameterizedTypeReference<List<Map<String, Object>>> type = new ParameterizedTypeReference<List<Map<String, Object>>>() {};
+		ResponseEntity<List<Map<String, Object>>> response = rt.exchange(sb.toString(), HttpMethod.GET, null, type);
 		List<Map<String, Object>> result = response.getBody();
 		return result;
 	}
@@ -127,18 +119,13 @@ public class HystrixService {
 	 */
 	@CacheEvict("testCache4Get")
 	public List<Map<String, Object>> testCache4Del() {
-		ServiceInstance si = 
-				this.loadBalancerClient.choose("eureka-application-service");
+		ServiceInstance si = this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
-		sb.append("http://").append(si.getHost())
-			.append(":").append(si.getPort()).append("/test");
+		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/test");
 		System.out.println("request application service URL : " + sb.toString());
 		RestTemplate rt = new RestTemplate();
-		ParameterizedTypeReference<List<Map<String, Object>>> type = 
-				new ParameterizedTypeReference<List<Map<String, Object>>>() {
-		};
-		ResponseEntity<List<Map<String, Object>>> response = 
-				rt.exchange(sb.toString(), HttpMethod.GET, null, type);
+		ParameterizedTypeReference<List<Map<String, Object>>> type = new ParameterizedTypeReference<List<Map<String, Object>>>() {};
+		ResponseEntity<List<Map<String, Object>>> response = rt.exchange(sb.toString(), HttpMethod.GET, null, type);
 		List<Map<String, Object>> result = response.getBody();
 		return result;
 	}
@@ -186,11 +173,9 @@ public class HystrixService {
 	 */
 	@HystrixCommand
 	public List<Map<String, Object>> mergeRequest(List<Long> ids){
-		ServiceInstance si = 
-				this.loadBalancerClient.choose("eureka-application-service");
+		ServiceInstance si = this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
-		sb.append("http://").append(si.getHost())
-			.append(":").append(si.getPort()).append("/testMerge?");
+		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/testMerge?");
 		for(int i = 0; i < ids.size(); i++){
 			Long id = ids.get(i);
 			if(i != 0){
@@ -203,8 +188,7 @@ public class HystrixService {
 		ParameterizedTypeReference<List<Map<String, Object>>> type = 
 				new ParameterizedTypeReference<List<Map<String, Object>>>() {
 		};
-		ResponseEntity<List<Map<String, Object>>> response = 
-				rt.exchange(sb.toString(), HttpMethod.GET, null, type);
+		ResponseEntity<List<Map<String, Object>>> response = rt.exchange(sb.toString(), HttpMethod.GET, null, type);
 		List<Map<String, Object>> result = response.getBody();
 		return result;
 	}
@@ -223,7 +207,6 @@ public class HystrixService {
 	 *       默认20个。 10毫秒内有20个错误请求则开启熔断。
 	 *   CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE - 错误比例。在10毫秒内，远程服务调用错误比例达标则开启熔断。
 	 *   CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS - 熔断开启后，间隔多少毫秒重试远程服务调用。默认5000毫秒。
-	 * @return
 	 */
 	@HystrixCommand(fallbackMethod = "breakerFallback",
 			commandProperties = {
@@ -239,22 +222,20 @@ public class HystrixService {
 	)
 	public List<Map<String, Object>> testBreaker() {
 		System.out.println("testBreaker method thread name : " + Thread.currentThread().getName());
-		ServiceInstance si = 
-				this.loadBalancerClient.choose("eureka-application-service");
+		ServiceInstance si = this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
-		sb.append("http://").append(si.getHost())
-			.append(":").append(si.getPort()).append("/test");
+		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/test");
 		System.out.println("request application service URL : " + sb.toString());
 		RestTemplate rt = new RestTemplate();
 		ParameterizedTypeReference<List<Map<String, Object>>> type = 
 				new ParameterizedTypeReference<List<Map<String, Object>>>() {
 		};
-		ResponseEntity<List<Map<String, Object>>> response = 
-				rt.exchange(sb.toString(), HttpMethod.GET, null, type);
+		ResponseEntity<List<Map<String, Object>>> response = rt.exchange(sb.toString(), HttpMethod.GET, null, type);
 		List<Map<String, Object>> result = response.getBody();
 		return result;
 	}
 	
+	@SuppressWarnings("unused")
 	private List<Map<String, Object>> breakerFallback(){
 		System.out.println("breakerFallback method thread name : " + Thread.currentThread().getName());
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -263,9 +244,7 @@ public class HystrixService {
 		data.put("id", -1);
 		data.put("name", "breaker fallback datas");
 		data.put("age", 0);
-		
 		result.add(data);
-		
 		return result;
 	}
 	
@@ -304,22 +283,18 @@ public class HystrixService {
 		fallbackMethod = "threadQuarantineFallback")
 	public List<Map<String, Object>> testThreadQuarantine() {
 		System.out.println("testQuarantine method thread name : " + Thread.currentThread().getName());
-		ServiceInstance si = 
-				this.loadBalancerClient.choose("eureka-application-service");
+		ServiceInstance si = this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
-		sb.append("http://").append(si.getHost())
-			.append(":").append(si.getPort()).append("/test");
+		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/test");
 		System.out.println("request application service URL : " + sb.toString());
 		RestTemplate rt = new RestTemplate();
-		ParameterizedTypeReference<List<Map<String, Object>>> type = 
-				new ParameterizedTypeReference<List<Map<String, Object>>>() {
-		};
-		ResponseEntity<List<Map<String, Object>>> response = 
-				rt.exchange(sb.toString(), HttpMethod.GET, null, type);
+		ParameterizedTypeReference<List<Map<String, Object>>> type = new ParameterizedTypeReference<List<Map<String, Object>>>() {};
+		ResponseEntity<List<Map<String, Object>>> response = rt.exchange(sb.toString(), HttpMethod.GET, null, type);
 		List<Map<String, Object>> result = response.getBody();
 		return result;
 	}
 	
+	@SuppressWarnings("unused")
 	private List<Map<String, Object>> threadQuarantineFallback(){
 		System.out.println("threadQuarantineFallback method thread name : " + Thread.currentThread().getName());
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -328,9 +303,7 @@ public class HystrixService {
 		data.put("id", -1);
 		data.put("name", "thread quarantine fallback datas");
 		data.put("age", 0);
-		
 		result.add(data);
-		
 		return result;
 	}
 	
@@ -361,33 +334,26 @@ public class HystrixService {
 	})
 	public List<Map<String, Object>> testSemaphoreQuarantine() {
 		System.out.println("testSemaphoreQuarantine method thread name : " + Thread.currentThread().getName());
-		ServiceInstance si = 
-				this.loadBalancerClient.choose("eureka-application-service");
+		ServiceInstance si = this.loadBalancerClient.choose("eureka-application-service");
 		StringBuilder sb = new StringBuilder();
-		sb.append("http://").append(si.getHost())
-			.append(":").append(si.getPort()).append("/test");
+		sb.append("http://").append(si.getHost()).append(":").append(si.getPort()).append("/test");
 		System.out.println("request application service URL : " + sb.toString());
 		RestTemplate rt = new RestTemplate();
-		ParameterizedTypeReference<List<Map<String, Object>>> type = 
-				new ParameterizedTypeReference<List<Map<String, Object>>>() {
-		};
-		ResponseEntity<List<Map<String, Object>>> response = 
-				rt.exchange(sb.toString(), HttpMethod.GET, null, type);
+		ParameterizedTypeReference<List<Map<String, Object>>> type = new ParameterizedTypeReference<List<Map<String, Object>>>() {};
+		ResponseEntity<List<Map<String, Object>>> response = rt.exchange(sb.toString(), HttpMethod.GET, null, type);
 		List<Map<String, Object>> result = response.getBody();
 		return result;
 	}
 	
+	@SuppressWarnings("unused")
 	private List<Map<String, Object>> semaphoreQuarantineFallback(){
 		System.out.println("threadQuarantineFallback method thread name : " + Thread.currentThread().getName());
 		List<Map<String, Object>> result = new ArrayList<>();
-		
 		Map<String, Object> data = new HashMap<>();
 		data.put("id", -1);
 		data.put("name", "thread quarantine fallback datas");
 		data.put("age", 0);
-		
 		result.add(data);
-		
 		return result;
 	}
 
