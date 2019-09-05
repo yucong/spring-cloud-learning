@@ -23,4 +23,5 @@ public class FeignApplicationClientApplication {
 		SpringApplication.run(FeignApplicationClientApplication.class, args);
 	}
 	
+	
 }
