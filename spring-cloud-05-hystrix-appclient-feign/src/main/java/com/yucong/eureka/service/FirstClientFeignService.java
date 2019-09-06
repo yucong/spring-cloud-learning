@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yucong.api.pojo.FeignTestPOJO;
-import com.yucong.eureka.service.impl.FirstClientFeignServiceImpl;
 
 /**
  * 如果在Feign中使用Hystrix，则不能直接继承服务标准接口。
@@ -25,8 +24,8 @@ import com.yucong.eureka.service.impl.FirstClientFeignServiceImpl;
  * 很容易在第一次访问的时候，产生超时。导致返回fallback数据。
  */
 @FeignClient(name="test-feign-application-service",
-			fallback=FirstClientFeignServiceImpl.class
-			//fallbackFactory=FirstClientFeignServiceFallbackFactory.class
+			//fallback=FirstClientFeignServiceImpl.class
+			fallbackFactory=FirstClientFeignServiceFallbackFactory.class
 		)
 public interface FirstClientFeignService{
 
