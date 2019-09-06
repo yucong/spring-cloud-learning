@@ -16,6 +16,13 @@ spring:
 server:
   port: 9002
 
+#开启监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
 eureka:
   client:
     service-url:

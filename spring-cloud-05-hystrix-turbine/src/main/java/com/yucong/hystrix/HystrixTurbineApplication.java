@@ -2,6 +2,7 @@ package com.yucong.hystrix;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.turbine.EnableTurbine;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
  *  可以实现收集多个App client的Dashboard监控数据。
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 @EnableTurbine
 public class HystrixTurbineApplication {
 
