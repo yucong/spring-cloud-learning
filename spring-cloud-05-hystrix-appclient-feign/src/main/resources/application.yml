@@ -10,8 +10,7 @@ eureka:
 spring:
   application:
     name: test-feign-application-client
-    
-    
+     
 server:
   port: 9009
 
@@ -22,8 +21,6 @@ management:
       exposure:
         include: hystrix.stream
           
-
-
 feign:
   hystrix:
     enabled: true
