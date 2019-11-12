@@ -30,3 +30,4 @@ hystrix:
     "FirstClientFeignService#testFeign()":
       fallback:
         enabled: true
+

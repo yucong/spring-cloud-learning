@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: spring-cloud-zuul
+
+server:
+  port: 8889
+    
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver1:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}\
+    
+
+    
+zuul:
+  routes:
+    eureka-application-service:
+      path: /api/**

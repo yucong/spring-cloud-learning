@@ -24,7 +24,7 @@ public class TestApplicationServiceController {
 		for(int i = 0; i < 3; i++){
 			// System.err.println("线程开始睡眠："  + Thread.currentThread().getName() );
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(3);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
